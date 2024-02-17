@@ -1,0 +1,61 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#chat-container {
+    flex-grow: 1;
+    overflow: auto;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    /* margin-bottom: 100px; 入力エリアの高さに応じて調整 */
+}
+
+#chat-box {
+    /* overflow-y: auto; コンテンツがオーバーフローしたらスクロールバーを表示 */
+    max-height: 80vh; /* ビューポートの高さの80%を最大高さとする */
+    margin-bottom: 20px; /* フォームとの間隔 */
+    overflow-wrap: break-word; /* 長い単語でも折り返し */
+}
+
+
+#chatForm {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 10px 10px 10px; /* チャットボックスとの間隔を調整 */
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* フォームに影を追加 */
+}
+
+textarea {
+    width: calc(100% - 120px); /* 送信ボタンの幅を考慮 */
+    height: 50px; /* 初期の高さ */
+    resize: vertical; /* 垂直方向のリサイズのみ許可 */
+}
+
+#sendButton {
+    width: 100px;
+    height: 54px; /* textareaと同じ高さに調整 */
+    vertical-align: top; /* ボタンをテキストエリアの上部に合わせる */
+}
+
+#chat-box div {
+    margin: 5px 0;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: #f0f0f0;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #d0e8f2;
+    padding: 5px;
+    border-radius: 5px;
+}
