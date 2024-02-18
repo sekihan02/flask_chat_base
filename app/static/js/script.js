@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             document.getElementById('fileInfo').innerText = ''; // ファイル情報の表示をクリア
         }
         else if (message) {
+            showLoadingScreen(); // メッセージ送信前にローディング画面を表示
             socket.emit('send_message', { message: message });
             // ユーザーのメッセージに含まれる改行を<br>タグに置換して表示
             var formattedMessage = message.replace(/\n/g, '<br>');
@@ -66,6 +67,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 
     socket.on('receive_message', function(data) {
+        hideLoadingScreen(); // メッセージ受信後にローディング画面を非表示に
         // ボットのメッセージに含まれる改行を<br>タグに置換して表示
         var formattedMessage = data.message.replace(/\n/g, '<br>');
         $('#chat-box').append(`<div class="bot-message">Bot: ${formattedMessage}</div>`);
@@ -81,3 +83,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 });
+
+
+function showLoadingScreen() {
+    // ロード画面を表示するコード
+    const loadingScreen = document.createElement('div');
+    loadingScreen.id = 'loadingScreen';
+    // loadingScreen.innerHTML = '<div class="loader">Loading...</div>';
+    loadingScreen.innerHTML = '<div class="loader"></div>';
+    document.body.appendChild(loadingScreen);
+}
+
+function hideLoadingScreen() {
+    // ロード画面を非表示にするコード
+    const loadingScreen = document.getElementById('loadingScreen');
+    if (loadingScreen) {
+        loadingScreen.remove();
+    }
+}
+

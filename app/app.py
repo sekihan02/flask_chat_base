@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 from werkzeug.utils import secure_filename
 import os
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
@@ -15,6 +16,8 @@ def index():
 @socketio.on('send_message')
 def handle_message(data):
     # user_message = data['message']
+    # 2秒間待機
+    # time.sleep(2)
     # ユーザーからのメッセージを処理するロジック（省略）
     # ユーザーからのメッセージに応じて、ボットの応答を送信
     emit('receive_message', {'message': "HELLO I'm BOT."})
