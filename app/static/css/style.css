@@ -16,7 +16,7 @@ body, html {
 
 #chat-box {
     /* overflow-y: auto; コンテンツがオーバーフローしたらスクロールバーを表示 */
-    max-height: 80vh; /* ビューポートの高さの80%を最大高さとする */
+    /* max-height: 80vh; ビューポートの高さの80%を最大高さとする */
     margin-bottom: 20px; /* フォームとの間隔 */
     overflow-wrap: break-word; /* 長い単語でも折り返し */
 }
@@ -32,14 +32,19 @@ body, html {
 
 textarea {
     width: calc(100% - 120px); /* 送信ボタンの幅を考慮 */
-    height: 50px; /* 初期の高さ */
+    height: 72px; /* 初期の高さ */
     resize: vertical; /* 垂直方向のリサイズのみ許可 */
 }
 
 #sendButton {
-    width: 100px;
-    height: 54px; /* textareaと同じ高さに調整 */
+    /* width: 100px;
+    height: 54px; textareaと同じ高さに調整 */
     vertical-align: top; /* ボタンをテキストエリアの上部に合わせる */
+    border: none; /* ボーダーを削除 */
+    background-color: #007bff; /* 背景色 */
+    color: white; /* 文字色 */
+    cursor: pointer; /* カーソルをポインターに */
+    border-radius: 5px; /* 角丸のデザイン */
 }
 
 #chat-box div {
@@ -58,4 +63,37 @@ textarea {
     background-color: #d0e8f2;
     padding: 5px;
     border-radius: 5px;
+}
+
+.file-input-icon, .drop-area-icon {
+    display: inline-block;
+    padding: 10px;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    height: 50px; /* 高さを指定 */
+    line-height: 30px; /* アイコンとテキストの縦位置を調整 */
+}
+
+.file-input-icon i, .drop-area-icon i {
+    font-size: 24px; /* アイコンのサイズ */
+}
+
+/* ドラッグアンドドロップ領域の幅を調整 */
+#dropArea {
+    width: auto; /* 幅を自動調整に変更、または具体的な値を指定 */
+    display: inline-block; /* インラインブロック要素として表示 */
+    margin: 0 0px; /* 余白を設定 */
+}
+
+/* 入力枠と送信ボタンのスタイルを調整 */
+#userInput, #sendButton {
+    height: 72px; /* 高さを指定 */
+}
+
+/* ファイル情報表示用のスタイル */
+.file-info {
+    margin-top: 10px; /* 余白を設定 */
+    color: #333; /* テキストカラー */
 }

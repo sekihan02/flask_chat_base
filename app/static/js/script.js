@@ -1,10 +1,59 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     var socket = io();
+    var selectedFile = null; // 選択されたファイルを保持する変数
 
+    // ファイル選択時の処理
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        handleFileSelection(e.target.files);
+    });
+
+    // ドラッグアンドドロップ時の処理
+    var dropArea = document.getElementById('dropArea');
+    dropArea.addEventListener('dragover', function(e) {
+        e.preventDefault();
+    });
+    dropArea.addEventListener('drop', function(e) {
+        e.preventDefault();
+        handleFileSelection(e.dataTransfer.files);
+    });
+
+    function handleFileSelection(files) {
+        if (files.length > 0) {
+            selectedFile = files[0]; // 選択されたファイルを保持
+            document.getElementById('fileInfo').innerText = `ファイルを読み込みました: ${selectedFile.name}`;
+        }
+    }
+
+    // ファイルアップロード処理の追加
+    function uploadFile(file) {
+        var formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/upload', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.message);
+            // アップロード完了後の処理（例: 応答メッセージの表示）
+        })
+        .catch(error => {
+            console.error('アップロード中にエラーが発生しました:', error);
+        });
+    }
+    // フォームの送信処理
     $('#chatForm').submit(function(e) {
         e.preventDefault();
         var message = $('#userInput').val().trim();
-        if (message) {
+
+        // ファイルが選択されていれば、その情報をサーバーに送信
+        if (selectedFile) {
+            uploadFile(selectedFile);
+            selectedFile = null; // ファイル送信後は選択されたファイルをリセット
+            document.getElementById('fileInfo').innerText = ''; // ファイル情報の表示をクリア
+        }
+        else if (message) {
             socket.emit('send_message', { message: message });
             // ユーザーのメッセージに含まれる改行を<br>タグに置換して表示
             var formattedMessage = message.replace(/\n/g, '<br>');
